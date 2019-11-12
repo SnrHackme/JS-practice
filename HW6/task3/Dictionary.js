@@ -16,4 +16,5 @@ class Dictionary {
 let d = new Dictionary();
 d.newEntry("Apple", "A fruit that grows on trees");
 console.log(d.look("Apple") === "A fruit that grows on trees");
+console.log(d.look("Apple"));
 console.log(d.look("Banana"));
