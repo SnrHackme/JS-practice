@@ -1,0 +1,136 @@
+.container {
+    width: 980px;
+    height: 680px;
+    position: relative;
+    margin: auto;
+    border: 40px solid black;
+    border-radius: 40px;
+    background-image: url(img/main-bg.jpg);
+    top: 35px;
+    /* box-shadow: 10px 10px 415px 1px black; */
+}
+.card {
+    position: absolute;
+    width: 173px;
+    height: 257px;
+    border-radius: 11px;
+    background-color: white;
+    left: 700px;
+    top: 200px;
+    cursor: pointer;
+}
+.cardFlopped {
+    position: absolute;
+    width: 173px;
+    height: 257px;
+    border-radius: 11px;
+    background-color: white;
+    box-shadow: 10px 10px 15px 0px black;
+    transition: all 1s ease-in-out;
+    left: 700px;
+    top: 200px;
+}
+.container > p {
+    position: absolute;
+    left: 40px;
+    color: white;
+    font-size: 48px;
+    font-weight: 900;
+    text-shadow: 10px 10px 5px black;
+}
+.cardImg {
+    width: 175px;
+    height: 259px;
+}
+.pass {
+    position: absolute;
+    top: 600px;
+    left: 835px;
+    height: 40px;
+    width: 100px;
+    background-color: green;
+    box-shadow: -6px -6px 8px 2px rgb(10,12,0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+	border: solid 12px rgb(45,45,45);
+}
+#userScore{
+    top: 530px;
+}
+.overlay {
+    background:black;
+    display:block;
+    position: fixed;
+    width: 1150%;
+    height: 1000%;
+    left: -1800px;
+    top: -1500px;
+    z-index:1000;
+}
+.fail {
+    position: fixed;
+    top: 300px;
+    left: 50%;
+    margin-left: -400px;
+    height: 100px;
+    width: 800px;
+    z-index: 1001;
+    display: none;
+    border: solid 20px rgb(45,45,45);
+    background: #207cca;
+    text-align: center;
+    color: white;
+    animation: show 1s ease-in-out;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+        transform: scale(2);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.blur {
+    filter: blur(4px);
+}
+
+.failButton {
+    margin: auto;
+    height: 40px;
+    width: 200px;
+    background-color: #EAFF9F;
+    box-shadow: none;
+    display: none;
+    cursor: pointer;
+}
+
+.failButton:hover {
+    background-color: #f2ff00;
+
+}
+
+.failButton>p {
+    margin-top: 8px;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+    font-size: 26px;
+}
