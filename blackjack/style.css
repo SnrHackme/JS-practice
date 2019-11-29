@@ -1,3 +1,46 @@
+@keyframes show {
+    0% {
+        opacity: 0;
+        transform: scale(2);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+@keyframes drop {
+    0% {
+        top:-1220px;
+    }
+    100% {
+        top:-40px;
+    }
+}
+@keyframes dropUp {
+    0% {
+        
+        top:-40px;
+    }
+    100% {
+        top:-1220px;
+    }
+}
+@keyframes dropCards {
+    0% {
+        top:-1220px;
+    }
+    100% {
+        top:0px;
+    }
+}
 .container {
     width: 980px;
     height: 680px;
@@ -60,6 +103,11 @@
     cursor: pointer;
 	border: solid 12px rgb(45,45,45);
 }
+.pass:hover {
+    box-shadow: none;
+    top:598px;
+    left:833px;
+}
 #userScore{
     top: 530px;
 }
@@ -89,25 +137,6 @@
     animation: show 1s ease-in-out;
 }
 
-@keyframes show {
-    0% {
-        opacity: 0;
-        transform: scale(2);
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes hide {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: scale(2);
-    }
-}
-
 .blur {
     filter: blur(4px);
 }
@@ -133,4 +162,75 @@
     color: black;
     font-weight: bold;
     font-size: 26px;
+}
+.start-form {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+    height: 740px;
+    z-index: 1001;
+    background: linear-gradient(to right, grey 0%, darkgrey 100%);
+    border: solid 20px rgb(45,45,45);
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    animation: drop 1s ease-in-out;
+}
+.card-group {
+    position: relative;
+    height: 320px;
+    margin-top: 100px;
+}
+.start-form img {
+    width: 173px;
+    height: 257px;
+    position: absolute;
+    border-radius: 16px;
+    /* top: -960px; */
+    animation: dropCards 2s ease-in-out;
+}
+.start-form h1 {
+    font-size: 2.5rem;
+}
+.start-form > p {
+    font-size: 22px;
+}
+.beginImg2 {
+    box-shadow: 10px 10px 15px 1px black;
+    transform: rotate(10deg);
+}
+.beginImg1 {
+    left:150px;
+    box-shadow: 10px 10px 15px 1px black;
+    transform: rotate(-10deg);
+}
+.start {
+    margin: auto;
+    height: 90px;
+    width: 400px;
+    background-color: #f2ff00;
+    box-shadow: 6px 6px 8px 0px #666000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 2px white;
+    border-left: solid 2px white;
+    border-bottom: solid 2px #BFD100;
+    border-right: solid 2px #BFD100;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.start:hover {
+    opacity: 1;
+}
+.start > p {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+    font-size: 50px;
 }

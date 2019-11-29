@@ -1,41 +1,48 @@
 let container = document.querySelector('.container');
-console.dir(container);
 let card;
 let img;
 let userScore = document.querySelector('#userScore');
 let aiScore = document.querySelector('#aiScore');
 let count = 0;
-// test
+let cardOff = [];
+userScore.innerText = 0;
+aiScore.innerText = 0;
 let arr = [];
-class Card {
-    constructor(id,num) {
-        this.id = id;
-        this.num = num;
+
+function ready() {
+    overlay(0.7,'body');
+    container.classList.add('blur');
+    document.querySelector('.start-form').style.display = 'block';
+    init();
+    card.addEventListener('mouseup',getCard);
+    document.querySelector('.pass').addEventListener('click',pass);
+}
+function init(){
+    for(let i = 1;i <= 52;i++) {
+        card = document.createElement('div');
+        card.className = 'card';
+        card.id = i.toString();
+        card.style.zIndex = 0;
+        img = document.createElement('img');
+        img.className = 'cardBack';
+        img.src = 'img/0.png';
+        card.appendChild(img);
+        card.style.left = `${(700 + i)}px`;
+        card.style.top = `${(200 + i*0.5)}px`;
+        container.appendChild(card)
     }
 }
 
-console.dir(container);
+document.addEventListener("DOMContentLoaded", ready);
 
-for(let i = 1;i <= 52;i++) {
-    card = document.createElement('div');
-    card.className = 'card';
-    card.id = i.toString();
-    card.style.zIndex = 0;
-    img = document.createElement('img');
-    img.className = 'cardBack';
-    img.src = 'img/0.png';
-    card.appendChild(img);
-    card.style.left = `${(700 + i)}px`;
-    card.style.top = `${(200 + i*0.5)}px`;
-    container.appendChild(card)
-    //test
-    arr.push(new Card(i,getScore(i)));
-}
-
-card.addEventListener('mouseup',() => getCard());
-
-userScore.innerText = 0;
-aiScore.innerText = 0;
+document.querySelector('.start').addEventListener('click', () => {
+    document.querySelector('.start-form').style.animation = 'dropUp 1s ease-in-out';
+    setTimeout(() => {
+        document.querySelector('.start-form').style.display = 'none';
+    },1000);
+    overlay(0,'body');
+    container.classList.remove('blur');
+});
 
 function getScore(id) {
     switch (true) {
@@ -52,60 +59,70 @@ function getScore(id) {
     }
 }
 
+function random(){
+    return Math.floor(Math.random() * (52 - 1 + 1)) + 1;
+}
+
 function getCard() {
-    let rand = Math.floor(Math.random() * (52 - 1 + 1)) + 1;
+    let rand = random();
+    if(cardOff.includes(rand)){
+        rand = random();
+    }
+    cardOff.push(rand);
     let id = document.getElementById(rand.toString());
     id.className = 'cardFlopped';
     img = document.createElement('img');
     img.className = 'cardImg';
-    img.src = `img/PNG/${id.id}.png`;
+    img.src = `img/png/${id.id}.png`;
     id.appendChild(img);
     id.firstChild.style.display = "none";
     if(count > 0) {
-        // id.style.left = (120 + 60 * count) + 'px';
-        // id.style.transform = `rotate(${-15 + 10 * count}deg)`;
-        id.style.transform = `translate(${-600 + 60 * count}px,200px) rotate(${-15 + 10 * count}deg)`;
+        id.style.transform = `translate(${-630 + 60 * count}px,160px) rotate(${-15 + 10 * count}deg)`;
         id.style.zIndex = count;
         count++;
     } else {
-        // id.style.left = 120 + 'px';
-        // id.style.transform = `rotate(-15deg)`;
-        id.style.transform = `translate(-600px,200px) rotate(-15deg)`;
+        id.style.transform = `translate(-630px,160px) rotate(-15deg)`;
         id.style.zIndex = count;
         count++;
     }
     let buf = parseInt(userScore.innerText);
-    userScore.innerText = buf + arr[rand-1].num;
-
-    console.dir(id);
+    userScore.innerText = buf + getScore(id.id);
 
     if(userScore.textContent > 21) {
-        message('You lost');
+        message('You lose');
+    }
+}
+function getCardAi(){
+    let rand = random();
+    if(cardOff.includes(rand)){
+        rand = random();
+    }
+    cardOff.push(rand);
+    let id = document.getElementById(rand.toString());
+    id.className = 'cardFlopped';
+    img = document.createElement('img');
+    img.className = 'cardImg';
+    img.src = `img/png/${id.id}.png`;
+    id.appendChild(img);
+    id.firstChild.style.display = "none";
+    if(count > 0) {
+        id.style.transform = `translate(${-630 + 60 * count}px,-160px) rotate(${15 + 10 * count}deg)`;
+        id.style.zIndex = count;
+        count++;
+    } else {
+        id.style.transform = `translate(-630px,-160px) rotate(15deg)`;
+        id.style.zIndex = count;
+        count++;
+    }
+    let buf = parseInt(aiScore.innerText);
+    aiScore.innerText = buf + getScore(id.id);
+
+    if(aiScore.textContent > 21) {
+        message('You win');
     }
 }
 
-function message(str,win) {
-    // $('.fail').remove();
-    // fail=document.createElement('div');
-    // fail.className='fail';
-    // $('body').append(fail);
-    // $('.fail').append('<h1>' + text + '</h1>').append('<div id="button" class="failButton"><p>OK</p></div>');
-
-
-    // $('.fail').delay(2000).show('puff',400,  function(){
-    //     black_fon(0.5);
-    //     $('.failButton').fadeTo(60,1);
-    //     clearTimeout(intervalID);
-    //     $('.failButton').click(function(){
-    //         if (win == 'ai') {
-    //             aiWins();
-    //         } else if (win == 'user') {
-    //             userWins();
-    //         }
-    //         newGame();
-    //     });
-    // });
-    
+function message(str,win) {    
     let fail = document.createElement('div');
     fail.className='fail';
     fail.innerHTML = `<h1>${str}</h1><div id="button" class="failButton"><p>OK</p></div>`;
@@ -128,7 +145,39 @@ function overlay(opacity,classToAppend = '.container') {
 }
 function newGame() {
     overlay(0);
-    console.dir(document.querySelector('.fail'));
     document.querySelector('.fail').style.animation = `hide 1s ease-in-out`;
     setTimeout(() => document.body.removeChild(document.querySelector('.fail')), 900);
+    aiScore.innerText = 0;
+    userScore.innerText = 0;
+    document.querySelectorAll('.cardFlopped').forEach((elem) => {
+        elem.className = 'card';
+        console.dir(elem);
+        elem.firstElementChild.style.display = 'block';
+        elem.removeChild(document.querySelector('.cardImg'));
+        elem.style.transform = '';
+        elem.style.zIndex = 0;
+    });
+    card.addEventListener('mouseup',getCard);
+    document.querySelector('.pass').addEventListener('click',pass);
+    cardOff = [];
+    count = 0;
+}
+function check() {
+    if(userScore.innerText  > aiScore.innerText) {
+        message('You win');
+    } else {
+        message('You lose');
+    }
+}
+function pass() {
+    card.removeEventListener('mouseup',getCard);
+    let timerId = setInterval(() => {
+        getCardAi();
+    }, 1500);
+    setTimeout(() => { clearInterval(timerId);
+                        document.querySelector('.pass').removeEventListener('click',pass);
+                        check();
+                    }
+                        , 3000);
+    count = 0;
 }
